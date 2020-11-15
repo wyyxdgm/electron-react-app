@@ -1,0 +1,86 @@
+{
+  "name": "electron-react-app",
+  "productName": "electronReactApp",
+  "version": "1.0.0",
+  "description": "Electron React App",
+  "main": "src/index.js",
+  "scripts": {
+    "rinit": "cd react-app && yarn",
+    "rstart": "cd react-app && yarn start",
+    "binit": "yarn & yarn rinit",
+    "bstart": "run-p start rstart",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "bmake": "cd react-app && yarn build && cd - && yarn make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "keywords": [],
+  "author": {
+    "name": "Damo",
+    "email": "wyyxdgm@163.com"
+  },
+  "win": {
+    "icon": "./icons/app.ico"
+  },
+  "mac": {
+    "icon": "./icons/app.icns"
+  },
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "./icons/app"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "electronReactApp",
+            "iconUrl": "./icons/app.ico"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {
+            "icon": "./icons/app.ico",
+            "iconSize": 128
+          }
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {
+            "options": {
+              "icon": "./icons/app.ico",
+              "size": 128
+            }
+          }
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "electron-log": "^4.3.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^6.0.1",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "electron": "10.1.5",
+    "electron-compile": "^6.4.4",
+    "npm-run-all": "^4.1.5"
+  }
+}
