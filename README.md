@@ -6,7 +6,7 @@
 
 - [环境要求](#环境要求)
 - [开发&打包](#开发相关)
-- [其他](#其他)
+- [项目概要](#项目概要)
 
 ## 环境要求
 
@@ -16,15 +16,12 @@ node: `v12.18.1`
 npm: `6.14.8`
 yarn: `1.22.4`
 electron-forge: `6.0.0-beta.54`
-multi-shell: `2.0.0-alpha.1`
 
-### 全局依赖
+### 全局依赖安装
 
-- 安装
-
-```bash
-yarn global add electron-forge multi-shell
-```
+- [node](https://nodejs.org/en/)
+- [yarn](https://yarn.bootcss.com/docs/install/#mac-stable)
+- [electron](https://www.electronforge.io/)
 
 ## 开发相关
 
@@ -37,28 +34,24 @@ yarn binit
 ### 本地开发
 
 ```bash
-# yarn bstart
-yarn rstart # start react-app
-yarn start # start electron
+yarn bstart
 ```
 
 ### 打包&&编译应用
 
-- 打包页面并生成应用
+```bash
+yarn bmake
+```
+
+## 项目概要
+
+### electron初始化
 
 ```bash
-yarn bmake # build react-app && electron-forge make
+yarn create electron-app electron-react-app
 ```
 
-- 生成应用（页面已打包情况）
-
-```
-yarn make
-```
-
-## 其他
-
-### react 子包初始化相关
+### react初始化
 
 ```bash
 yarn create react-app react-app --template typescript
@@ -67,9 +60,9 @@ yarn add antd
 yarn start
 ```
 
-### react 打包路径
+### 更改react打包路径
 
-默认生成目标路径为`react-app/build`，已被更改为`src/view`，(配置文件`react-app/config/paths.js`)
+默认生成目标路径为`react-app/build`，调整为`src/view`，(配置文件`react-app/config/paths.js`)
 
 相关代码：
 
@@ -77,6 +70,16 @@ yarn start
 {
   appBuild: resolveApp('../src/view'),
 }
+```
+
+### 启动浏览器替换成启动electron
+
+通过修改`react-app/scripts/start.js`添加`startElectron`变量，决定否同步启动`electron`
+
+相关代码：
+
+```js
+require("child_process").spawn("yarn", ["startElectron"]);
 ```
 
 ### 系统引入其他支持

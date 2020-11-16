@@ -8,7 +8,7 @@
     "rinit": "cd react-app && yarn",
     "rstart": "cd react-app && yarn start",
     "binit": "yarn & yarn rinit",
-    "bstart": "run-p start rstart",
+    "bstart": "cd react-app && yarn startWidthElectron",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
