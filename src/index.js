@@ -39,6 +39,7 @@ const createWindow = () => {
       })
       .catch((err) => console.log('installExtension error: ', err));
   }
+  require('./events')({ mainWindow })
 
 };
 

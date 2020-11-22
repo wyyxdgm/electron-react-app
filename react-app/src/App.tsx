@@ -8,8 +8,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 function App() {
   return (
     <Router>
-      <div>
-        <ul>
+      <div className="app">
+        <ul className="menu">
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -30,7 +30,7 @@ function App() {
           you have multiple routes, but you want only one
           of them to render at a time
         */}
-        <Switch>
+        <Switch >
           <Route exact path="/">
             <Home />
           </Route>

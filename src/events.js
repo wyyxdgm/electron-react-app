@@ -8,7 +8,7 @@ var mainWindow;
 const store = new Store();
 const V = require('./v');
 const DEFAULT_DATA = require('./data.json');
-const INIT_VALUE = 2;
+const INIT_VALUE = 1;
 if (store.get('inited') != INIT_VALUE) { // 首次初始化store
   console.log('首次开启，初始化数据到：', app.getPath('userData') + '/config.json');
   store.set('inited', INIT_VALUE);
@@ -39,7 +39,7 @@ const saveStore = (arg) => {
 ipcMain.on('save', (event, arg) => {
   console.log('arg', arg);
   saveStore(arg);
-  if (arg.type === V.ACTION_TYPE.SET_CONFIG) {
+  if (arg.type === V.SAVE_TYPE.SET_CONFIG) {
     if (mainWindow) {
       // mainWindow.webContents.send('update', {[arg.k]: arg.v});
       event.reply('saved', 'success')
@@ -49,6 +49,31 @@ ipcMain.on('save', (event, arg) => {
     }
   }
 })
+
+ipcMain.on('fetch', (event, arg) => {
+  console.log('arg', arg);
+  if (mainWindow && mainWindow.webContents) {
+    // mainWindow.webContents.send('update', data);
+    event.reply('update', data);
+  }
+})
+
+
+ipcMain.on('action', (event, arg) => {
+  console.log('arg', arg);
+  if (arg.type === V.ACTION_TYPE.EXEC) {
+    require('child_process').exec(arg.command, { cwd: null }, (err, res) => {
+      console.log(res)
+      if (mainWindow) {
+        // mainWindow.webContents.send('update', {[arg.k]: arg.v});
+        event.reply('update', { 'config.output': res })
+      } else {
+        console.log('mainWindow action fail: 当前不可见', arg);
+      }
+    });
+  }
+})
+
 module.exports = function(opt) {
   if (opt.mainWindow) {
     // mainWindow
@@ -56,7 +81,10 @@ module.exports = function(opt) {
     mainWindow.on('closed', () => { mainWindow = null; console.log('mainWindow closed') });
     mainWindow.webContents.on('did-finish-load', () => {
       mainWindow.isLoaded = true;
-      mainWindow.webContents.send('update', data);
+      console.log('mainWindow.webContents.did-finish-load')
+      // setTimeout(() => {
+      //   mainWindow.webContents.send('update', data);
+      // }, 100);
     });
   }
   // console.log(mainWindow)

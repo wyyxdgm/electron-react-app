@@ -1,3 +1,23 @@
-.App {
+.app {
+  background: white;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 10px;
+}
+ul.menu {
   text-align: center;
+}
+ul.menu,
+li {
+  text-decoration: none;
+  list-style: none;
+}
+
+.app ul.menu {
+  display: flex;
+}
+
+.app ul.menu li {
+  display: block;
+  margin-right: 20px;
 }
