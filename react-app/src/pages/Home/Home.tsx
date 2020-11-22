@@ -38,7 +38,7 @@ function Home() {
       console.log("destory");
       window.ipcRenderer.off("update", onUpdate);
     };
-  }, []);
+  });
   const exec = () => {
     console.log("exec");
     window.ipcRenderer.send("action", {
