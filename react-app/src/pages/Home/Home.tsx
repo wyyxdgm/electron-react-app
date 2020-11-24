@@ -38,7 +38,7 @@ function Home() {
       console.log("destory");
       window.ipcRenderer.off("update", onUpdate);
     };
-  });
+  }, []);
   const exec = () => {
     console.log("exec");
     window.ipcRenderer.send("action", {
@@ -49,7 +49,7 @@ function Home() {
   return (
     <div>
       <div style={{ marginBottom: 20 }}>
-        读取数据config.test:<input value={store.config.test}></input>
+        读取数据config.test:<input defaultValue={store.config.test}></input>
       </div>
       <input onChange={changeInput} defaultValue="ls -ahl"></input>
       <button onClick={exec}>Exec # {cmd}</button>
