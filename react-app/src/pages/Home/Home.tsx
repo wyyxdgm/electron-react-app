@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import _ from "lodash";
 
-function Home() {
+function Home(props: any) {
   let [store, setStore] = useState<any>({ config: {} });
   let [cmd, setCmd] = useState<String>("ls -ahl");
   const changeInput = (e) => {
     setCmd(e.target.value);
   };
   useEffect(() => {
+    console.log("props", props);
     const onUpdate = (e, data) => {
       console.log("onUpdate", e, data, store);
       for (var key in data) {
@@ -38,7 +39,10 @@ function Home() {
       console.log("destory");
       window.ipcRenderer.off("update", onUpdate);
     };
-  });
+  }, []);
+  let onInputChange = (e) => {
+    console.log(e.target.value);
+  };
   const exec = () => {
     console.log("exec");
     window.ipcRenderer.send("action", {
@@ -49,7 +53,11 @@ function Home() {
   return (
     <div>
       <div style={{ marginBottom: 20 }}>
-        读取数据config.test:<input value={store.config.test}></input>
+        读取数据config.test:
+        <input
+          defaultValue={store.config.test}
+          onChange={onInputChange}
+        ></input>
       </div>
       <input onChange={changeInput} defaultValue="ls -ahl"></input>
       <button onClick={exec}>Exec # {cmd}</button>
