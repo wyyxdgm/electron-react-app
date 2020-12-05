@@ -25,7 +25,7 @@ const saveStore = (arg) => {
   if (!data[type]) data[type] = {};
   Object.assign(data[type], { [k]: v });
   let storeKey = `${type}.${k}`;
-  console.log('saved', storeKey, v);
+  console.log('saveStore', storeKey, v);
   store.set(storeKey, v);
 }
 
@@ -51,7 +51,7 @@ ipcMain.on('save', (event, arg) => {
 })
 
 ipcMain.on('fetch', (event, arg) => {
-  console.log('arg', arg);
+  console.log('fetch', arg);
   if (mainWindow && mainWindow.webContents) {
     // mainWindow.webContents.send('update', data);
     event.reply('update', data);
@@ -60,7 +60,7 @@ ipcMain.on('fetch', (event, arg) => {
 
 
 ipcMain.on('action', (event, arg) => {
-  console.log('arg', arg);
+  console.log('action', arg);
   if (arg.type === V.ACTION_TYPE.EXEC) {
     require('child_process').exec(arg.command, { cwd: null }, (err, res) => {
       console.log(res)

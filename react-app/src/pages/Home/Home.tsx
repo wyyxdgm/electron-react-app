@@ -42,6 +42,11 @@ function Home(props: any) {
   }, []);
   let onInputChange = (e) => {
     console.log(e.target.value);
+    window.ipcRenderer.send("save", {
+      type: "config",
+      k: "test",
+      v: e.target.value,
+    });
   };
   const exec = () => {
     console.log("exec");
